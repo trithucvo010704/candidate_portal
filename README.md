@@ -1,36 +1,95 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# VTT Public Portal
 
-## Getting Started
+App này là career site public cho ứng viên của hệ thống VTT Careers HRM.
 
-First, run the development server:
+## Vai Trò
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- Hiển thị danh sách job public.
+- Hiển thị chi tiết job.
+- Cho ứng viên apply job.
+- Cho ứng viên theo dõi trạng thái hồ sơ.
+- Hiển thị comments/Q&A public cho từng job.
+
+Không dùng repo này làm HR/Admin dashboard. Dashboard nằm ở `../vtt-hrm-dashboard`.
+
+## Chạy Local
+
+Port đề xuất:
+
+- Backend Spring Boot: `http://localhost:8080` hoặc `http://localhost:8081`
+- Public Portal: `http://localhost:3002`
+
+Env thường dùng:
+
+```powershell
+NEXT_PUBLIC_API_URL=http://localhost:8080
+NEXT_PUBLIC_USE_MOCKS=false
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Chạy app:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```powershell
+npm run dev -- --port 3002
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Kiểm tra kỹ thuật:
 
-## Learn More
+```powershell
+npm run lint
+npm run build
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Contract API
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Public Portal chỉ dùng wrapper:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- `fetchData<T>()`: dùng cho `BaseResponse`.
 
-## Deploy on Vercel
+Các flow chính:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Public job list: `GET /base/jobs/public`
+- Job detail by slug: `GET /base/jobs/public/{applyUrl}`
+- Job detail by id: `GET /base/jobs/public/id/{id}`
+- Apply: `POST /api/public/jobs/{jobId}/apply`
+- Track application: `GET /base/applications/public/track`
+- Comments/Q&A: `/public/jobs/{jobId}/comments`
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Public Portal không nên dùng `fetchAgentData` nếu chưa gọi trực tiếp Agent API.
+
+Backend contract chi tiết nằm ở:
+
+- `../../DATN_backend/docs/API_CONTRACT.md`
+- `../../DATN_backend/docs/FE_INTEGRATION_GUIDE.md`
+
+## Mock Mode
+
+Mock vẫn được giữ để demo offline.
+
+Bật mock bằng env:
+
+```powershell
+NEXT_PUBLIC_USE_MOCKS=true
+```
+
+Hoặc trên browser:
+
+- thêm query `?mock=1`
+- hoặc localStorage `vtt-public-use-mocks=true`
+
+Mock chính nằm ở:
+
+- `src/mocks/public-portal.mock.ts`
+
+## Cấu Trúc Chính
+
+- `src/app/candidate`: route ứng viên.
+- `src/components/portal`: UI public portal.
+- `src/lib/services/public-job.service.ts`: service gọi backend hoặc mock.
+- `src/lib/public-types.ts`: type public portal.
+
+## Nguyên Tắc Khi Sửa
+
+- Public API không bắt buộc dashboard JWT.
+- Không redirect login chỉ vì public endpoint trả lỗi.
+- Không kéo logic dashboard hoặc worker vào app này.
+- Không xóa mock nếu chưa có quyết định riêng.
