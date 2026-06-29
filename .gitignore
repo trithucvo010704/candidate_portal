@@ -39,3 +39,12 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local tooling and test artifacts
+.turbo/
+.cache/
+playwright-report/
+test-results/
+screenshots/
+*.log
+*.err.log
