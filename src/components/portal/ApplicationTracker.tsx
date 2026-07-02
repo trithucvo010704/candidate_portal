@@ -39,7 +39,7 @@ export function ApplicationTracker() {
     try {
       const response = await PublicJobService.trackApplications({
         email: track.email.trim(),
-        phone: track.phone.trim() || undefined,
+        phone: track.phone.trim(),
       });
       setResults(response);
       setMessage(response.length ? null : "Không tìm thấy hồ sơ nào với thông tin này.");
@@ -59,7 +59,7 @@ export function ApplicationTracker() {
         </span>
         <div>
           <h2 className="text-lg font-black tracking-tight text-[#251913]">Theo dõi hồ sơ</h2>
-          <p className="text-sm font-semibold text-slate-500">Kiểm tra trạng thái ứng tuyển bằng email.</p>
+          <p className="text-sm font-semibold text-slate-500">Kiểm tra trạng thái ứng tuyển bằng email và số điện thoại.</p>
         </div>
       </div>
 
@@ -76,7 +76,8 @@ export function ApplicationTracker() {
           className="portal-input"
           value={track.phone}
           onChange={(event) => setTrack((prev) => ({ ...prev, phone: event.target.value }))}
-          placeholder="Số điện thoại nếu có"
+          placeholder="Số điện thoại đã ứng tuyển"
+          required
         />
         <button type="submit" disabled={isLoading} className="portal-button bg-[#10b981] shadow-emerald-500/20 hover:bg-[#0ea371]">
           {isLoading ? <Loader2 className="size-4 animate-spin" /> : <RefreshCw className="size-4" />}

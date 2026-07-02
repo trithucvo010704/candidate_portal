@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from 'axios';
-import { getStoredToken } from './auth';
 import { ApiResponse } from './public-types';
 import { getPublicLegacyMockResponse } from '@/mocks/mock-response-registry';
 
@@ -10,17 +9,6 @@ const api = axios.create({
     'Content-Type': 'application/json',
   },
 });
-
-api.interceptors.request.use(
-  (config) => {
-    const token = getStoredToken();
-    if (token) {
-      config.headers['Authorization'] = `Bearer ${token}`;
-    }
-    return config;
-  },
-  (error) => Promise.reject(error),
-);
 
 // Public Portal routes are public by default; surface 401/403 to the UI instead of forcing dashboard login.
 api.interceptors.response.use(

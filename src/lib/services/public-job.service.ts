@@ -23,6 +23,13 @@ import {
 
 function shouldUseMocks() {
   // Keep public mock mode for offline demos and golden-state UI reviews.
+  if (typeof window !== 'undefined') {
+    const host = window.location.hostname;
+    const isProductionHost = host === 'jobs.votrithuc.click' || host === 'candidate-portal-eight.vercel.app';
+    if (isProductionHost && process.env.NEXT_PUBLIC_ALLOW_PRODUCTION_MOCKS !== 'true') {
+      return false;
+    }
+  }
   if (process.env.NEXT_PUBLIC_USE_MOCKS === 'true') return true;
   if (typeof window === 'undefined') return false;
   return (
@@ -97,13 +104,13 @@ export class PublicJobService {
     });
   }
 
-  static trackApplications(params: { email: string; phone?: string }) {
+  static trackApplications(params: { email: string; phone: string }) {
     if (shouldUseMocks()) {
       return getMockApplicationTrack();
     }
 
     const query = new URLSearchParams({ email: params.email });
-    if (params.phone) query.set('phone', params.phone);
+    query.set('phone', params.phone);
     return fetchData<CandidateApplicationTrackResponse[]>(`/base/applications/public/track?${query.toString()}`);
   }
 
