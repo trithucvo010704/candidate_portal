@@ -94,9 +94,12 @@ export class PublicJobService {
     const formData = new FormData();
     formData.set('email', request.email.trim());
     formData.set('fullName', request.fullName.trim());
-    if (request.phone) formData.set('phone', request.phone.trim());
+    formData.set('phone', request.phone.trim());
     if (request.sourceCode) formData.set('sourceCode', request.sourceCode.trim());
-    if (request.cvFile) formData.set('cvFile', request.cvFile);
+    if (!request.cvFile) {
+      throw new Error('File CV là bắt buộc');
+    }
+    formData.set('cvFile', request.cvFile);
 
     return fetchData<ApplyResponse>(`/api/public/jobs/${encodeURIComponent(jobId)}/apply`, {
       method: 'POST',

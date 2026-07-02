@@ -38,6 +38,10 @@ export function ApplyForm({ jobId, jobTitle, sourceCode }: ApplyFormProps) {
     setIsSuccess(false);
 
     try {
+      if (!candidate.cvFile) {
+        setMessage("Vui lòng tải lên CV trước khi nộp hồ sơ.");
+        return;
+      }
       const response = await PublicJobService.apply(jobId, {
         ...candidate,
         sourceCode,
@@ -100,6 +104,7 @@ export function ApplyForm({ jobId, jobTitle, sourceCode }: ApplyFormProps) {
             value={candidate.phone}
             onChange={(event) => setCandidate((prev) => ({ ...prev, phone: event.target.value }))}
             placeholder="090 123 4567"
+            required
           />
         </label>
         <label className="grid gap-2">
@@ -111,6 +116,7 @@ export function ApplyForm({ jobId, jobTitle, sourceCode }: ApplyFormProps) {
               type="file"
               className="sr-only"
               accept=".pdf,.doc,.docx"
+              required
               onChange={(event) => {
                 const file = event.target.files?.[0] ?? null;
                 setCandidate((prev) => ({ ...prev, cvFile: file }));

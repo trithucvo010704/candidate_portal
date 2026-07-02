@@ -77,7 +77,7 @@ export interface PublicJobPage {
 export interface ApplyRequest {
   email: string;
   fullName: string;
-  phone?: string;
+  phone: string;
   cvFile?: File | null;
   sourceCode?: string;
 }
