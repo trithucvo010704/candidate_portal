@@ -2,6 +2,8 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import {
   ArrowLeft,
   CalendarDays,
@@ -77,11 +79,6 @@ export function JobDetailScreen({ slug, id, sourceCode }: JobDetailScreenProps) 
       { icon: WalletCards, label: formatSalary(job.salaryFrom, job.salaryTo, job.unit ?? "VND") },
       { icon: CalendarDays, label: `Hạn nộp ${formatDate(job.deadline)}` },
     ];
-  }, [job]);
-
-  const descriptionBlocks = useMemo(() => {
-    if (!job?.description) return [];
-    return job.description.split(/\n{2,}/).map((block) => block.trim()).filter(Boolean);
   }, [job]);
 
   return (
@@ -163,13 +160,28 @@ export function JobDetailScreen({ slug, id, sourceCode }: JobDetailScreenProps) 
                 <h2 className="border-l-4 border-[#f97316] pl-4 text-2xl font-black tracking-tight text-[#251913]">
                   Mô tả công việc
                 </h2>
-                <div className="mt-6 space-y-5 text-base font-medium leading-8 text-slate-700">
-                  {descriptionBlocks.length > 0 ? (
-                    descriptionBlocks.map((block) => (
-                      <p key={block} className="whitespace-pre-wrap">
-                        {block}
-                      </p>
-                    ))
+                <div className="mt-6 text-base font-medium leading-8 text-slate-700">
+                  {job.description ? (
+                    <ReactMarkdown
+                      remarkPlugins={[remarkGfm]}
+                      components={{
+                        h2: ({ children }) => (
+                          <h2 className="mt-8 first:mt-0 text-xl font-black tracking-tight text-[#251913]">
+                            {children}
+                          </h2>
+                        ),
+                        h3: ({ children }) => (
+                          <h3 className="mt-6 text-lg font-black tracking-tight text-[#251913]">{children}</h3>
+                        ),
+                        p: ({ children }) => <p className="mt-3 first:mt-0">{children}</p>,
+                        ul: ({ children }) => <ul className="mt-3 list-disc space-y-2 pl-5">{children}</ul>,
+                        ol: ({ children }) => <ol className="mt-3 list-decimal space-y-2 pl-5">{children}</ol>,
+                        li: ({ children }) => <li className="pl-1">{children}</li>,
+                        strong: ({ children }) => <strong className="font-black text-[#251913]">{children}</strong>,
+                      }}
+                    >
+                      {job.description}
+                    </ReactMarkdown>
                   ) : (
                     <p>Thông tin chi tiết sẽ được cập nhật sớm.</p>
                   )}
