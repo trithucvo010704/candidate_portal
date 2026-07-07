@@ -1,14 +1,20 @@
 import { PublicJobListItem } from "@/lib/public-types";
 
 export function formatSalary(from: number | null, to: number | null, unit = "VND") {
-  if (!from && !to) return "Thỏa thuận";
-  const formatter = new Intl.NumberFormat("vi-VN", {
-    notation: "compact",
-    maximumFractionDigits: 1,
-  });
-  if (from && to) return `${formatter.format(from)} - ${formatter.format(to)} ${unit}`;
-  if (from) return `Từ ${formatter.format(from)} ${unit}`;
-  return `Đến ${formatter.format(to ?? 0)} ${unit}`;
+  const normalizedUnit = unit?.toUpperCase() === "VND" ? "VNĐ" : unit || "VNĐ";
+  const hasFrom = typeof from === "number" && Number.isFinite(from) && from > 0;
+  const hasTo = typeof to === "number" && Number.isFinite(to) && to > 0;
+  const formatAmount = (value: number) => {
+    if (normalizedUnit === "VNĐ" && value < 1000) {
+      return `${new Intl.NumberFormat("vi-VN", { maximumFractionDigits: 1 }).format(value)} triệu VNĐ/tháng`;
+    }
+    return `${new Intl.NumberFormat("vi-VN").format(value)} ${normalizedUnit}`;
+  };
+
+  if (!hasFrom && !hasTo) return "Lương thỏa thuận";
+  if (hasFrom && hasTo) return `${formatAmount(from as number)} - ${formatAmount(to as number)}`;
+  if (hasFrom) return `Lương từ ${formatAmount(from as number)}`;
+  return `Lương đến ${formatAmount(to ?? 0)}`;
 }
 
 export function formatDate(value: string | null) {
