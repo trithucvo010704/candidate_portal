@@ -33,15 +33,17 @@ export function ApplyForm({ jobId, jobTitle, sourceCode }: ApplyFormProps) {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setIsSubmitting(true);
     setMessage(null);
     setIsSuccess(false);
 
+    if (!candidate.cvFile) {
+      setMessage("Vui lòng tải lên CV trước khi nộp hồ sơ.");
+      return;
+    }
+
+    setIsSubmitting(true);
+
     try {
-      if (!candidate.cvFile) {
-        setMessage("Vui lòng tải lên CV trước khi nộp hồ sơ.");
-        return;
-      }
       const response = await PublicJobService.apply(jobId, {
         ...candidate,
         sourceCode,
@@ -116,10 +118,10 @@ export function ApplyForm({ jobId, jobTitle, sourceCode }: ApplyFormProps) {
               type="file"
               className="sr-only"
               accept=".pdf,.doc,.docx"
-              required
               onChange={(event) => {
                 const file = event.target.files?.[0] ?? null;
                 setCandidate((prev) => ({ ...prev, cvFile: file }));
+                if (file) setMessage(null);
               }}
             />
           </span>
