@@ -203,7 +203,7 @@ export function JobDetailScreen({ slug, id, sourceCode }: JobDetailScreenProps) 
                     job.rounds.map((round) => (
                       <div key={round.id} className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-white p-4">
                         <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-[#fff1eb] text-sm font-black text-[#f97316]">
-                          {round.roundIndex}
+                          {round.roundIndex + 1}
                         </span>
                         <div className="min-w-0">
                           <p className="truncate font-black text-[#251913]">{round.roundName}</p>

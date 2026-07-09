@@ -113,7 +113,7 @@ export function ApplicationTracker() {
                   {item.roundHistory.map((round) => (
                     <div key={round.id} className="flex items-start gap-3 text-sm">
                       <span className="grid size-7 shrink-0 place-items-center rounded-lg bg-[#fff1eb] text-xs font-black text-[#f97316]">
-                        {round.roundIndex}
+                        {round.roundIndex + 1}
                       </span>
                       <div className="min-w-0">
                         <p className="truncate font-bold text-slate-700">{round.roundName}</p>
