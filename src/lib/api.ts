@@ -5,9 +5,6 @@ import { getPublicLegacyMockResponse } from '@/mocks/mock-response-registry';
 
 const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080',
-  headers: {
-    'Content-Type': 'application/json',
-  },
 });
 
 // Public Portal routes are public by default; surface 401/403 to the UI instead of forcing dashboard login.
@@ -24,8 +21,14 @@ function getRequestData(body: unknown) {
 }
 
 function getRequestHeaders(headers: Record<string, string> = {}, body?: unknown) {
-  if (!(body instanceof FormData)) return headers;
   const nextHeaders = { ...headers };
+  if (!(body instanceof FormData)) {
+    const hasContentType = Object.keys(nextHeaders).some((key) => key.toLowerCase() === 'content-type');
+    if (!hasContentType) {
+      nextHeaders['Content-Type'] = 'application/json';
+    }
+    return nextHeaders;
+  }
   delete nextHeaders['Content-Type'];
   delete nextHeaders['content-type'];
   return nextHeaders;
