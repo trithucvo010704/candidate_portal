@@ -34,6 +34,8 @@ export function CommentsPanel({ jobId }: CommentsPanelProps) {
 
   useEffect(() => {
     void loadComments();
+    const timer = window.setInterval(() => void loadComments(), 15_000);
+    return () => window.clearInterval(timer);
   }, [loadComments]);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -61,7 +63,7 @@ export function CommentsPanel({ jobId }: CommentsPanelProps) {
     <section id="qa" className="rounded-2xl border border-white/70 bg-white/85 p-6 shadow-lg shadow-slate-200/60 backdrop-blur-xl">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <div>
-          <p className="text-sm font-black uppercase tracking-[0.16em] text-[#10b981]">Web Q&A</p>
+          <p className="text-sm font-black uppercase tracking-[0.16em] text-[#047857]">Web Q&A</p>
           <h2 className="mt-2 text-2xl font-black tracking-tight text-[#251913]">Hỏi về vị trí này</h2>
         </div>
         <button
@@ -100,6 +102,12 @@ export function CommentsPanel({ jobId }: CommentsPanelProps) {
                   {item.aiReply}
                 </div>
               )}
+              {item.hrReplies?.map((reply) => (
+                <div key={reply.id} className="mt-3 rounded-xl border border-orange-200 bg-orange-50 p-3 text-sm leading-6 text-orange-950">
+                  <p className="mb-1 text-xs font-black uppercase tracking-wide text-orange-800">Phản hồi từ HR</p>
+                  <p className="[overflow-wrap:anywhere]">{reply.content}</p>
+                </div>
+              ))}
             </article>
           ))
         )}
@@ -107,16 +115,19 @@ export function CommentsPanel({ jobId }: CommentsPanelProps) {
 
       <form onSubmit={handleSubmit} className="mt-5 grid gap-3">
         <div className="grid gap-3 sm:grid-cols-2">
-          <input className="portal-input" value={guestName} onChange={(event) => setGuestName(event.target.value)} placeholder="Tên của bạn" />
+          <label className="grid gap-1"><span className="text-sm font-bold text-slate-700">Tên của bạn</span><input className="portal-input" value={guestName} onChange={(event) => setGuestName(event.target.value)} placeholder="Nguyễn Văn A" /></label>
+          <label className="grid gap-1"><span className="text-sm font-bold text-slate-700">Email nhận phản hồi</span>
           <input
             className="portal-input"
             type="email"
             value={guestEmail}
             onChange={(event) => setGuestEmail(event.target.value)}
             placeholder="Email để HR phản hồi"
-          />
+          /></label>
         </div>
+        <label htmlFor="qa-content" className="text-sm font-bold text-slate-700">Câu hỏi của bạn</label>
         <textarea
+          id="qa-content"
           className="portal-input min-h-28 py-3"
           value={content}
           onChange={(event) => setContent(event.target.value)}

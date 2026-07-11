@@ -112,6 +112,14 @@ export interface JobCommentDto {
   guestName: string;
   content: string;
   aiReply: string | null;
+  hrReplies?: Array<{
+    id: string;
+    actorType: 'HR';
+    content: string;
+    deliveryStatus: 'SENT';
+    createdAt: string;
+    sentAt?: string | null;
+  }>;
   createdAt: string | null;
   jobTitle: string | null;
 }
