@@ -10,7 +10,7 @@ export function PortalNav({ compact = false }: PortalNavProps) {
     <header className="sticky top-0 z-50 border-b border-white/40 bg-white/75 backdrop-blur-xl">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 sm:px-8 lg:px-10">
         <Link href="/candidate" className="flex items-center gap-3">
-          <span className="grid size-10 place-items-center rounded-xl bg-[#f97316] text-white shadow-lg shadow-orange-500/20">
+          <span className="grid size-10 place-items-center rounded-xl bg-[#c2410c] text-white shadow-lg shadow-orange-900/20">
             <BriefcaseBusiness className="size-5" />
           </span>
           <span>
@@ -41,7 +41,7 @@ export function PortalNav({ compact = false }: PortalNavProps) {
           </Link>
           <Link
             href="/candidate#tracking"
-            className="inline-flex h-10 items-center gap-2 rounded-xl bg-[#f97316] px-4 text-sm font-bold text-white shadow-lg shadow-orange-500/20 transition hover:brightness-105"
+            className="inline-flex h-10 items-center gap-2 rounded-xl bg-[#c2410c] px-4 text-sm font-bold text-white shadow-lg shadow-orange-900/20 transition hover:bg-[#9a3412]"
           >
             <ShieldCheck className="size-4" />
             Theo dõi

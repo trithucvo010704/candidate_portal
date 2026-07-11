@@ -94,6 +94,7 @@ export function PortalHome() {
             <form onSubmit={handleSearch} className="mt-8 rounded-2xl border border-white/70 bg-white/85 p-3 shadow-2xl shadow-orange-100/80 backdrop-blur-xl">
               <div className="grid gap-3 lg:grid-cols-[1fr_220px_180px_auto]">
                 <label className="relative">
+                  <span className="sr-only">Từ khóa công việc</span>
                   <Search className="pointer-events-none absolute left-4 top-1/2 size-5 -translate-y-1/2 text-slate-400" />
                   <input
                     className="portal-input h-14 pl-12"
@@ -103,6 +104,7 @@ export function PortalHome() {
                   />
                 </label>
                 <label className="relative">
+                  <span className="sr-only">Địa điểm làm việc</span>
                   <MapPin className="pointer-events-none absolute left-4 top-1/2 size-5 -translate-y-1/2 text-slate-400" />
                   <input
                     className="portal-input h-14 pl-12"
@@ -112,6 +114,7 @@ export function PortalHome() {
                   />
                 </label>
                 <label className="relative">
+                  <span className="sr-only">Hình thức làm việc</span>
                   <Filter className="pointer-events-none absolute left-4 top-1/2 size-5 -translate-y-1/2 text-slate-400" />
                   <select
                     className="portal-input h-14 pl-12"
@@ -157,10 +160,10 @@ export function PortalHome() {
             />
             <div className="mt-5 flex items-center justify-between gap-4">
               <div>
-                <p className="text-sm font-black text-[#10b981]">Live hiring workspace</p>
+                <p className="text-sm font-black text-[#047857]">Live hiring workspace</p>
                 <p className="mt-1 text-2xl font-black tracking-tight text-[#251913]">Ứng tuyển nhanh hơn, minh bạch hơn.</p>
               </div>
-              <span className="grid size-12 place-items-center rounded-2xl bg-[#f97316] text-white">
+              <span className="grid size-12 place-items-center rounded-2xl bg-[#c2410c] text-white">
                 <ArrowRight className="size-5" />
               </span>
             </div>
@@ -171,7 +174,7 @@ export function PortalHome() {
       <section id="jobs" className="mx-auto max-w-7xl px-5 py-14 sm:px-8 lg:px-10">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <p className="text-sm font-black uppercase tracking-[0.18em] text-[#10b981]">Open roles</p>
+            <p className="text-sm font-black uppercase tracking-[0.18em] text-[#047857]">Open roles</p>
             <h2 className="mt-2 text-4xl font-black tracking-tight text-[#251913]">Kết quả tìm kiếm</h2>
             <p className="mt-2 text-base font-semibold text-slate-500">Chọn vị trí phù hợp và nộp hồ sơ trong vài phút.</p>
           </div>

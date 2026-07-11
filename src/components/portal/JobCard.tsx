@@ -18,7 +18,7 @@ export function JobCard({ job, featured = false }: JobCardProps) {
     >
       <div className="flex items-start justify-between gap-4">
         <div className="min-w-0">
-          <p className="text-xs font-black uppercase tracking-[0.18em] text-[#10b981]">
+          <p className="text-xs font-black uppercase tracking-[0.18em] text-[#047857]">
             {job.categoryName ?? "Hiring"}
           </p>
           <h3 className="mt-2 line-clamp-2 text-xl font-black tracking-tight text-[#251913] transition group-hover:text-[#f97316]">

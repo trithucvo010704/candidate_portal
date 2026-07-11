@@ -28,7 +28,7 @@ export function PortalChatWidget() {
   };
 
   return (
-    <div className="fixed bottom-5 right-5 z-50">
+    <div className="fixed bottom-3 right-3 z-50 max-w-[calc(100vw-1.5rem)] sm:bottom-5 sm:right-5">
       {isOpen && (
         <section className="mb-4 w-[min(360px,calc(100vw-40px))] overflow-hidden rounded-2xl border border-white/70 bg-white/90 shadow-2xl shadow-slate-900/20 backdrop-blur-xl">
           <div className="flex items-center justify-between bg-[#251913] px-4 py-3 text-white">
@@ -42,6 +42,7 @@ export function PortalChatWidget() {
               </div>
             </div>
             <button type="button" onClick={() => setIsOpen(false)} className="grid size-8 place-items-center rounded-lg hover:bg-white/10">
+              <span className="sr-only">Đóng hỗ trợ</span>
               <X className="size-4" />
             </button>
           </div>
@@ -51,7 +52,7 @@ export function PortalChatWidget() {
               <div key={`${message.role}-${index}`} className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}>
                 <p
                   className={`max-w-[82%] rounded-2xl px-3 py-2 text-sm font-semibold leading-6 ${
-                    message.role === "user" ? "bg-[#f97316] text-white" : "bg-slate-100 text-slate-700"
+                    message.role === "user" ? "bg-[#c2410c] text-white" : "bg-slate-100 text-slate-700"
                   }`}
                 >
                   {message.text}
@@ -62,6 +63,7 @@ export function PortalChatWidget() {
 
           <div className="flex items-center gap-2 border-t border-slate-100 p-3">
             <input
+              aria-label="Nội dung cần hỗ trợ"
               className="h-10 flex-1 rounded-xl border border-slate-200 bg-white px-3 text-sm font-semibold outline-none transition focus:border-[#f97316]/50 focus:ring-4 focus:ring-orange-500/10"
               value={input}
               onChange={(event) => setInput(event.target.value)}
@@ -70,7 +72,8 @@ export function PortalChatWidget() {
               }}
               placeholder="Hỏi về vị trí ứng tuyển..."
             />
-            <button type="button" onClick={send} className="grid size-10 place-items-center rounded-xl bg-[#f97316] text-white">
+            <button type="button" onClick={send} className="grid size-10 place-items-center rounded-xl bg-[#c2410c] text-white hover:bg-[#9a3412]">
+              <span className="sr-only">Gửi câu hỏi hỗ trợ</span>
               <Send className="size-4" />
             </button>
           </div>
@@ -79,8 +82,10 @@ export function PortalChatWidget() {
 
       <button
         type="button"
+        aria-label={isOpen ? "Đóng hỗ trợ" : "Mở hỗ trợ"}
+        aria-expanded={isOpen}
         onClick={() => setIsOpen((prev) => !prev)}
-        className="relative grid size-16 place-items-center rounded-2xl bg-[#f97316] text-white shadow-2xl shadow-orange-500/30 transition hover:-translate-y-1 hover:brightness-105"
+        className="relative grid size-14 place-items-center rounded-2xl bg-[#c2410c] text-white shadow-2xl shadow-orange-900/30 transition hover:-translate-y-1 hover:bg-[#9a3412] sm:size-16"
       >
         <span className="absolute -right-1 -top-1 size-4 rounded-full bg-[#6cf8bb] ring-4 ring-white" />
         <MessageCircle className="size-7" />

@@ -122,7 +122,7 @@ export function JobDetailScreen({ slug, id, sourceCode }: JobDetailScreenProps) 
                     {meta.map(({ icon: Icon, label }) => (
                       <div key={label} className="flex min-w-0 items-center gap-3 rounded-2xl border border-white/70 bg-white/70 p-4 shadow-sm backdrop-blur-md">
                         <Icon className="size-5 shrink-0 text-[#f97316]" />
-                        <span className="truncate text-sm font-bold text-slate-700">{label}</span>
+                        <span className="min-w-0 break-words text-sm font-bold text-slate-700">{label}</span>
                       </div>
                     ))}
                   </div>
@@ -136,7 +136,7 @@ export function JobDetailScreen({ slug, id, sourceCode }: JobDetailScreenProps) 
                         "linear-gradient(135deg, rgba(249,115,22,0.22), rgba(16,185,129,0.18)), url('https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1200&q=80')",
                     }}
                   />
-                  <div className="mt-5 grid grid-cols-2 gap-3">
+                  <div className="mt-5 grid grid-cols-1 gap-3 min-[380px]:grid-cols-2">
                     <a href="#apply" className="portal-button justify-center">
                       Ứng tuyển ngay
                     </a>
@@ -194,7 +194,7 @@ export function JobDetailScreen({ slug, id, sourceCode }: JobDetailScreenProps) 
                     <Users className="size-5" />
                   </span>
                   <div>
-                    <p className="text-sm font-black uppercase tracking-[0.16em] text-[#10b981]">Vòng tuyển dụng</p>
+                    <p className="text-sm font-black uppercase tracking-[0.16em] text-[#047857]">Vòng tuyển dụng</p>
                     <h2 className="text-2xl font-black tracking-tight text-[#251913]">Quy trình tuyển dụng</h2>
                   </div>
                 </div>
@@ -226,7 +226,7 @@ export function JobDetailScreen({ slug, id, sourceCode }: JobDetailScreenProps) 
               <ApplyForm jobId={job.id} jobTitle={job.title} sourceCode={sourceCode} />
 
               <div className="rounded-2xl border border-white/70 bg-white/80 p-5 shadow-lg shadow-slate-200/60 backdrop-blur-xl">
-                <p className="text-sm font-black uppercase tracking-[0.16em] text-[#10b981]">Thông tin nhanh</p>
+                <p className="text-sm font-black uppercase tracking-[0.16em] text-[#047857]">Thông tin nhanh</p>
                 <div className="mt-4 grid gap-3">
                   {[
                     ["Nhóm", job.categoryName ?? "Tổng quát"],
