@@ -62,7 +62,7 @@ export function ApplyForm({ jobId, jobTitle, sourceCode }: ApplyFormProps) {
     <form id="apply" onSubmit={handleSubmit} className="rounded-2xl border border-white/70 bg-white/85 p-6 shadow-xl shadow-slate-200/70 backdrop-blur-xl">
       <div className="flex items-start justify-between gap-4">
         <div>
-          <p className="text-sm font-black uppercase tracking-[0.16em] text-[#10b981]">Ứng tuyển nhanh</p>
+          <p className="text-sm font-black uppercase tracking-[0.16em] text-[#047857]">Ứng tuyển nhanh</p>
           <h2 className="mt-2 text-2xl font-black tracking-tight text-[#251913]">Gửi hồ sơ của bạn</h2>
         </div>
         <span className="grid size-12 place-items-center rounded-xl bg-[#fff1eb] text-[#f97316]">
@@ -86,6 +86,8 @@ export function ApplyForm({ jobId, jobTitle, sourceCode }: ApplyFormProps) {
             onChange={(event) => setCandidate((prev) => ({ ...prev, fullName: event.target.value }))}
             placeholder="Nguyễn Văn A"
             required
+            onInvalid={(event) => event.currentTarget.setCustomValidity('Vui lòng nhập họ và tên.')}
+            onInput={(event) => event.currentTarget.setCustomValidity('')}
           />
         </label>
         <label className="grid gap-2">
@@ -97,6 +99,8 @@ export function ApplyForm({ jobId, jobTitle, sourceCode }: ApplyFormProps) {
             onChange={(event) => setCandidate((prev) => ({ ...prev, email: event.target.value }))}
             placeholder="example@email.com"
             required
+            onInvalid={(event) => event.currentTarget.setCustomValidity(event.currentTarget.validity.valueMissing ? 'Vui lòng nhập email.' : 'Email không đúng định dạng.')}
+            onInput={(event) => event.currentTarget.setCustomValidity('')}
           />
         </label>
         <label className="grid gap-2">
@@ -107,6 +111,8 @@ export function ApplyForm({ jobId, jobTitle, sourceCode }: ApplyFormProps) {
             onChange={(event) => setCandidate((prev) => ({ ...prev, phone: event.target.value }))}
             placeholder="090 123 4567"
             required
+            onInvalid={(event) => event.currentTarget.setCustomValidity('Vui lòng nhập số điện thoại.')}
+            onInput={(event) => event.currentTarget.setCustomValidity('')}
           />
         </label>
         <label className="grid gap-2">

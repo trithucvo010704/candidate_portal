@@ -64,22 +64,30 @@ export function ApplicationTracker() {
       </div>
 
       <form onSubmit={handleSubmit} className="mt-5 grid gap-3">
+        <label htmlFor="tracking-email" className="text-sm font-bold text-slate-700">Email đã ứng tuyển</label>
         <input
+          id="tracking-email"
           className="portal-input"
           type="email"
           value={track.email}
           onChange={(event) => setTrack((prev) => ({ ...prev, email: event.target.value }))}
           placeholder="Email đã ứng tuyển"
           required
+          onInvalid={(event) => event.currentTarget.setCustomValidity('Vui lòng nhập email đã ứng tuyển.')}
+          onInput={(event) => event.currentTarget.setCustomValidity('')}
         />
+        <label htmlFor="tracking-phone" className="text-sm font-bold text-slate-700">Số điện thoại đã ứng tuyển</label>
         <input
+          id="tracking-phone"
           className="portal-input"
           value={track.phone}
           onChange={(event) => setTrack((prev) => ({ ...prev, phone: event.target.value }))}
           placeholder="Số điện thoại đã ứng tuyển"
           required
+          onInvalid={(event) => event.currentTarget.setCustomValidity('Vui lòng nhập số điện thoại đã ứng tuyển.')}
+          onInput={(event) => event.currentTarget.setCustomValidity('')}
         />
-        <button type="submit" disabled={isLoading} className="portal-button bg-[#10b981] shadow-emerald-500/20 hover:bg-[#0ea371]">
+        <button type="submit" disabled={isLoading} className="portal-button bg-[#047857] shadow-emerald-900/20 hover:bg-[#065f46]">
           {isLoading ? <Loader2 className="size-4 animate-spin" /> : <RefreshCw className="size-4" />}
           Kiểm tra trạng thái
         </button>
